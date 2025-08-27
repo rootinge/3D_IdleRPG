@@ -6,7 +6,6 @@ using UnityEngine;
 [Serializable]
 public class PlayerData
 {
-    // 한글로 변수 주석
     [field: SerializeField] public int MaxHealth { get; private set; } // 최대 체력
     [field: SerializeField] public int HealthPerLevel { get; private set; } // 레벨업 할때 올라갈 체력
     [field: SerializeField] public int HpLevel { get; private set; } // 체력 레벨
@@ -22,7 +21,6 @@ public class PlayerData
     [field: SerializeField] public float AttackSpeed { get; private set; } // 공격 속도
     [field: SerializeField] public float AttackSpeedPerLevel { get; private set; } // 레벨업 할때 올라갈 공격 속도
     [field: SerializeField] public int AttackSpeedLevel { get; private set; } // 공격 속도 레벨
-
 }
 
 

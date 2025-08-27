@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     public PlayerCondition Condition { get; private set; }
 
-    public Health health { get; private set; }
+    public Health Health { get; private set; }
     public Attack Attack { get; private set; }
 
     private void Awake()
@@ -20,18 +20,21 @@ public class Player : MonoBehaviour
         Input = GetComponent<PlayerController>();
         Controller = GetComponent<CharacterController>();
         Condition = GetComponent<PlayerCondition>();
-        health = GetComponent<Health>();
+        Health = GetComponent<Health>();
         Attack = GetComponent<Attack>();
+        CharacterManager.Instance.Player = this;
+
+        Health.SetHealth(Data.PlayerData.MaxHealth, Data.PlayerData.HealthPerLevel, Data.PlayerData.HpLevel);
+        Health.SetArmor(Data.PlayerData.Armor, Data.PlayerData.ArmorPerLevel, Data.PlayerData.ArmorLevel);
+        Attack.SetAttack(Data.PlayerData.Damage, Data.PlayerData.DamagePerLevel, Data.PlayerData.DamageLevel,
+                         Data.PlayerData.AttackSpeed, Data.PlayerData.AttackSpeedPerLevel, Data.PlayerData.AttackSpeedLevel);
     }
 
     private void Start()
     {
-        health.SetHealth(Data.PlayerData.MaxHealth, Data.PlayerData.HealthPerLevel, Data.PlayerData.HpLevel);
-        health.SetArmor(Data.PlayerData.Armor, Data.PlayerData.ArmorPerLevel, Data.PlayerData.ArmorLevel);
-        Attack.SetAttack(Data.PlayerData.Damage, Data.PlayerData.DamagePerLevel, Data.PlayerData.DamageLevel,
-                         Data.PlayerData.AttackSpeed, Data.PlayerData.AttackSpeedPerLevel, Data.PlayerData.AttackSpeedLevel);
+
         // Cursor.lockState = CursorLockMode.Locked;
-        health.OnDie += OnDie;
+        Health.OnDie += OnDie;
 
         Animator.SetFloat("AttackSpeed", Attack.GetAttackSpeed());
     }

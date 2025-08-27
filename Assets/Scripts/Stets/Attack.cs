@@ -4,46 +4,49 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    private int damage;
-    private int damagePerLevel;
-    private int damageLevel;
+    [field: Header("공격력")]
+    [field: SerializeField] public int Damage { get; private set; }
+    [field: SerializeField] public int DamagePerLevel { get; private set; }
+    [field: SerializeField] public int DamageLevel { get; private set; }
 
-    private float attackSpeed;
-    private float attackSpeedPerLevel;
-    private int attackSpeedLevel;
+    [field: Header("공격 속도")]
+    [field: SerializeField] public float AttackSpeed { get; private set; }
+    [field: SerializeField] public float AttackSpeedPerLevel { get; private set; }
+    [field: SerializeField] public int AttackSpeedLevel { get; private set; }
 
     // 초기 설정
     public void SetAttack(int damage, int damagePerLevel, int damageLevel, float attackSpeed, float attackSpeedPerLevel, int attackSpeedLevel)
     {
-        this.damage = damage;
-        this.damagePerLevel = damagePerLevel;
-        this.damageLevel = damageLevel;
-        this.attackSpeed = attackSpeed;
-        this.attackSpeedPerLevel = attackSpeedPerLevel;
-        this.attackSpeedLevel = attackSpeedLevel;
+        this.Damage = damage;
+        this.DamagePerLevel = damagePerLevel;
+        this.DamageLevel = damageLevel;
+        this.AttackSpeed = attackSpeed;
+        this.AttackSpeedPerLevel = attackSpeedPerLevel;
+        this.AttackSpeedLevel = attackSpeedLevel;
 
-        this.damage += damagePerLevel * (damageLevel - 1);
+        this.Damage += damagePerLevel * (damageLevel - 1);
     }
 
     public void Attacking(Health go)
     {
-        go.TakeDamage(damage);
+        go.TakeDamage(Damage);
     }
 
     public void DamageLevelUp()
     {
-        damageLevel++;
-        damage += damagePerLevel;
+        DamageLevel++;
+        Damage += DamagePerLevel;
     }
 
     public void AttackSpeedLevelUp()
     {
-        attackSpeedLevel++;
-        attackSpeed += attackSpeedPerLevel;
+        AttackSpeedLevel++;
+        AttackSpeed += AttackSpeedPerLevel;
+        AttackSpeed = Mathf.CeilToInt(AttackSpeed * 100) / 100f; // 소수점 첫째자리까지
     }
 
     public float GetAttackSpeed()
     {
-        return attackSpeed;
+        return AttackSpeed;
     }
 }

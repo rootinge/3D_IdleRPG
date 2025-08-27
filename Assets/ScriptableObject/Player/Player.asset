@@ -15,7 +15,13 @@ MonoBehaviour:
   <PlayerData>k__BackingField:
     <MaxHealth>k__BackingField: 100
     <HealthPerLevel>k__BackingField: 2
+    <HpLevel>k__BackingField: 1
+    <Armor>k__BackingField: 0
+    <ArmorPerLevel>k__BackingField: 2
+    <ArmorLevel>k__BackingField: 1
     <Damage>k__BackingField: 10
     <DamagePerLevel>k__BackingField: 2
+    <DamageLevel>k__BackingField: 1
     <AttackSpeed>k__BackingField: 1
     <AttackSpeedPerLevel>k__BackingField: 0.05
+    <AttackSpeedLevel>k__BackingField: 1

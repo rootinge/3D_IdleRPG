@@ -1,25 +1,28 @@
 using System;
 using UnityEngine;
 
+
 public class Health : MonoBehaviour
 {
-    private int maxHealth;
-    private int health;
+    [field: Header("체력")]
+    [field: SerializeField] public int MaxHealth { get; private set; }
+    [field: SerializeField] public int health { get; private set; }
 
-    private int hpLevel; // 체력 레벨
-    private int healthPerLevel; // 레벨업 할때 올라갈 체력
+    [field: SerializeField] public int HpLevel { get; private set; }
+    [field: SerializeField] public int HealthPerLevel { get; private set; }
 
-    private int armor;
-    private int armorPerLevel;
-    private int armorLevel;
+    [field: Header("방어력")]
+    [field: SerializeField] public int Armor { get; private set; }
+    [field: SerializeField] public int ArmorPerLevel { get; private set; }
+    [field: SerializeField] public int ArmorLevel { get; private set; }
 
     public event Action OnDie;
 
     public void SetHealth(int maxHealth, int healthPerLevel, int hpLevel)
     {
-        this.maxHealth = maxHealth;
-        this.healthPerLevel = healthPerLevel;
-        this.hpLevel = hpLevel;
+        this.MaxHealth = maxHealth;
+        this.HealthPerLevel = healthPerLevel;
+        this.HpLevel = hpLevel;
 
         maxHealth += healthPerLevel * (hpLevel - 1);
         this.health = maxHealth;
@@ -27,17 +30,17 @@ public class Health : MonoBehaviour
 
     public void SetArmor(int armor, int armorPerLevel, int armorLevel)
     {
-        this.armor = armor;
-        this.armorPerLevel = armorPerLevel;
-        this.armorLevel = armorLevel;
-        this.armor += armorPerLevel * (armorLevel - 1);
+        this.Armor = armor;
+        this.ArmorPerLevel = armorPerLevel;
+        this.ArmorLevel = armorLevel;
+        this.Armor += armorPerLevel * (armorLevel - 1);
     }
 
     public void TakeDamage(int damage)
     {
         if (health == 0) return;
 
-        damage = Mathf.Max(damage - armor, 1); // 최소 데미지는 1
+        damage = Mathf.Max(damage - Armor, 1); // 최소 데미지는 1
         health = Mathf.Max(health - damage, 0);
 
         if (health == 0) OnDie?.Invoke();
@@ -49,13 +52,20 @@ public class Health : MonoBehaviour
     {
         if (health == 0) return;
 
-        health = Mathf.Min(health + amount, maxHealth);
+        health = Mathf.Min(health + amount, MaxHealth);
     }
     public void HPLevelUp()
     {
-        hpLevel++;
-        maxHealth += healthPerLevel;
-        Heal(healthPerLevel);
-        Debug.Log($"레벨업! 현재 체력 레벨: {hpLevel}, 최대 체력: {maxHealth}");
+        HpLevel++;
+        MaxHealth += HealthPerLevel;
+        Heal(HealthPerLevel);
+        Debug.Log($"레벨업! 현재 체력 레벨: {HpLevel}, 최대 체력: {MaxHealth}");
+    }
+
+    public void ArmorLevelUp()
+    {
+        ArmorLevel++;
+        Armor += ArmorPerLevel;
+        Debug.Log($"레벨업! 현재 방어력 레벨: {ArmorLevel}, 방어력: {Armor}");
     }
 }
