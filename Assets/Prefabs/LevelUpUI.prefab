@@ -53,8 +53,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1909477b898ac124d966b017814e5c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconSprite: {fileID: 0}
-  statName: 
+  iconSprite: {fileID: 21300000, guid: b6518c7b412675e498d001e150bdd9e6, type: 3}
+  statName: "\uCCB4\uB825"
   currentValue: 0
   increaseValue: 0
 --- !u!1 &2516365029313959467
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 5266224650439466253}
   - component: {fileID: 3285813760774152967}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 7579746819786406609}
   - component: {fileID: 5092984302153584579}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: GoldText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -347,7 +347,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: gold
 --- !u!1 &7023626136631314368
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class LevelUpUI : MonoBehaviour
     private Text nameText;
     private Text levelText;
     private Text currentValueText;
+    private Text goldText;
 
     [SerializeField] Sprite iconSprite;
     [SerializeField] string statName;
@@ -23,6 +24,7 @@ public class LevelUpUI : MonoBehaviour
         nameText = transform.Find("NameText").GetComponent<Text>();
         levelText = transform.Find("LevelText").GetComponent<Text>();
         currentValueText = transform.Find("CurrentValueText").GetComponent<Text>();
+        goldText = transform.Find("Button/GoldText").GetComponent<Text>();
     }
 
     void Start()
@@ -38,11 +40,12 @@ public class LevelUpUI : MonoBehaviour
         LevelUp?.Invoke();
     }
 
-    public void UpdateUI(int level, float currentValue, float increaseValue)
+    public void UpdateUI(int level, float currentValue, float increaseValue, int goldCost)
     {
         this.currentValue = currentValue;
         this.increaseValue = increaseValue;
         levelText.text = $"Level {level}";
         currentValueText.text = $"{currentValue}  ¢º  {currentValue + increaseValue}";
+        goldText.text = $"{goldCost:N0}G";
     }
 }

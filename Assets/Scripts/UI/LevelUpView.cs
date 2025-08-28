@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelUpView : MonoBehaviour
@@ -13,17 +11,17 @@ public class LevelUpView : MonoBehaviour
     void Start()
     {
         player = CharacterManager.Instance.Player;
-        
-        if(player == null)
+
+        if (player == null)
         {
             Debug.LogError("Player reference is missing in LevelUpView.");
             return;
         }
 
-        healthUI.UpdateUI(player.Health.HpLevel, player.Health.MaxHealth, player.Health.HealthPerLevel);
-        armorUI.UpdateUI(player.Health.ArmorLevel, player.Health.Armor, player.Health.ArmorPerLevel);
-        damageUI.UpdateUI(player.Attack.DamageLevel, player.Attack.Damage, player.Attack.DamagePerLevel);
-        attackSpeedUI.UpdateUI(player.Attack.AttackSpeedLevel, player.Attack.AttackSpeed, player.Attack.AttackSpeedPerLevel);
+        healthUI.UpdateUI(player.Health.HpLevel, player.Health.MaxHealth, player.Health.HealthPerLevel, player.Health.HealthUpgradeCost);
+        armorUI.UpdateUI(player.Health.ArmorLevel, player.Health.Armor, player.Health.ArmorPerLevel, player.Health.ArmorUpgradeCost);
+        damageUI.UpdateUI(player.Attack.DamageLevel, player.Attack.Damage, player.Attack.DamagePerLevel, player.Attack.DamageUpgradeCost);
+        attackSpeedUI.UpdateUI(player.Attack.AttackSpeedLevel, player.Attack.AttackSpeed, player.Attack.AttackSpeedPerLevel, player.Attack.AttackSpeedUpgradeCost);
         healthUI.LevelUp += HealthLevelUp;
         armorUI.LevelUp += ArmorLevelUp;
         damageUI.LevelUp += DamageLevelUp;
@@ -35,23 +33,41 @@ public class LevelUpView : MonoBehaviour
 
     void HealthLevelUp()
     {
+        if (player.Gold < player.Health.HealthUpgradeCost)
+            return;
+        else
+            player.AddGold(-player.Health.HealthUpgradeCost);
+
         player.Health.HPLevelUp();
-        healthUI.UpdateUI(player.Health.HpLevel, player.Health.MaxHealth, player.Health.HealthPerLevel);
+        healthUI.UpdateUI(player.Health.HpLevel, player.Health.MaxHealth, player.Health.HealthPerLevel, player.Health.HealthUpgradeCost);
     }
 
     void ArmorLevelUp()
     {
+        if (player.Gold < player.Health.ArmorUpgradeCost)
+            return;
+        else
+            player.AddGold(-player.Health.ArmorUpgradeCost);
         player.Health.ArmorLevelUp();
-        armorUI.UpdateUI(player.Health.ArmorLevel, player.Health.Armor, player.Health.ArmorPerLevel);
+        armorUI.UpdateUI(player.Health.ArmorLevel, player.Health.Armor, player.Health.ArmorPerLevel, player.Health.ArmorUpgradeCost);
     }
     void DamageLevelUp()
     {
+        if (player.Gold < player.Attack.DamageUpgradeCost)
+            return;
+        else
+            player.AddGold(-player.Attack.DamageUpgradeCost);
         player.Attack.DamageLevelUp();
-        damageUI.UpdateUI(player.Attack.DamageLevel, player.Attack.Damage, player.Attack.DamagePerLevel);
+        damageUI.UpdateUI(player.Attack.DamageLevel, player.Attack.Damage, player.Attack.DamagePerLevel, player.Attack.DamageUpgradeCost);
     }
     void AttackSpeedLevelUp()
     {
+        if (player.Gold < player.Attack.AttackSpeedUpgradeCost)
+            return;
+        else
+            player.AddGold(-player.Attack.AttackSpeedUpgradeCost);
         player.Attack.AttackSpeedLevelUp();
-        attackSpeedUI.UpdateUI(player.Attack.AttackSpeedLevel, player.Attack.AttackSpeed, player.Attack.AttackSpeedPerLevel);
+        player.AttackSpeedLevelUp();
+        attackSpeedUI.UpdateUI(player.Attack.AttackSpeedLevel, player.Attack.AttackSpeed, player.Attack.AttackSpeedPerLevel, player.Attack.AttackSpeedUpgradeCost);
     }
 }
