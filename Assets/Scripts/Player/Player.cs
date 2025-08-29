@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 
     private int gold = 0;
 
+    
     public int Gold
     {
         get => gold;
